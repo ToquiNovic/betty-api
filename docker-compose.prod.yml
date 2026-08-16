@@ -1,0 +1,98 @@
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: betty_postgres_prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-betty}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-betty_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-betty} -d ${POSTGRES_DB:-betty_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_prod_network
+
+  dragonfly:
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:latest
+    container_name: betty_dragonfly_prod
+    restart: always
+    ports:
+      - "6379:6379"
+    ulimits:
+      memlock: -1
+    volumes:
+      - dragonfly_prod_data:/data
+    command: >
+      --requirepass ${DRAGONFLY_PASSWORD}
+      --logtostderr
+      --snapshot_cron "*/15 * * * *"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${DRAGONFLY_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_prod_network
+
+  emqx:
+    image: emqx/emqx:5.8.5
+    container_name: betty_emqx_prod
+    restart: always
+    ports:
+      - "1883:1883"
+      - "8083:8083"
+      - "18083:18083"
+      - "8883:8883"
+    environment:
+      - "EMQX_DASHBOARD__DEFAULT_USERNAME=${EMQX_ADMIN_USER:-admin}"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=${EMQX_ADMIN_PASSWORD}"
+      - "EMQX_ALLOW_ANONYMOUS=false"
+    volumes:
+      - emqx_prod_data:/opt/emqx/data
+      - emqx_prod_log:/opt/emqx/log
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_prod_network
+
+  betty-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: betty_api_prod
+    restart: always
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      dragonfly:
+        condition: service_healthy
+      emqx:
+        condition: service_healthy
+    networks:
+      - betty_prod_network
+
+volumes:
+  postgres_prod_data:
+  dragonfly_prod_data:
+  emqx_prod_data:
+  emqx_prod_log:
+
+networks:
+  betty_prod_network:
+    driver: bridge

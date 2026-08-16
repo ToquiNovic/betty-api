@@ -1,0 +1,111 @@
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: betty_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: betty
+      POSTGRES_PASSWORD: betty_secret_pass
+      POSTGRES_DB: betty_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U betty -d betty_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_network
+
+  dragonfly:
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:latest
+    container_name: betty_dragonfly
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    ulimits:
+      memlock: -1
+    volumes:
+      - dragonfly_data:/data
+    command: >
+      --requirepass dragonfly_secret_pass
+      --logtostderr
+      --snapshot_cron "*/15 * * * *"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "dragonfly_secret_pass", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_network
+
+  emqx:
+    image: emqx/emqx:5.8.5
+    container_name: betty_emqx
+    restart: unless-stopped
+    ports:
+      - "1883:1883"     # MQTT TCP
+      - "8083:8083"     # MQTT WebSocket
+      - "18083:18083"   # EMQX Dashboard
+      - "8084:8084"     # WSS
+      - "8883:8883"     # MQTTS
+    environment:
+      - "EMQX_DASHBOARD__DEFAULT_USERNAME=admin"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=public_admin"
+      - "EMQX_ALLOW_ANONYMOUS=false"
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - betty_network
+
+  betty-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: betty_api
+    restart: unless-stopped
+    command: pnpm run start:dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_URL=postgres://betty:betty_secret_pass@postgres:5432/betty_db
+      - DRAGONFLY_HOST=dragonfly
+      - DRAGONFLY_PORT=6379
+      - DRAGONFLY_PASSWORD=dragonfly_secret_pass
+      - MQTT_BROKER_URL=mqtt://emqx:1883
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      dragonfly:
+        condition: service_healthy
+      emqx:
+        condition: service_healthy
+    networks:
+      - betty_network
+
+volumes:
+  postgres_data:
+  dragonfly_data:
+  emqx_data:
+  emqx_log:
+
+networks:
+  betty_network:
+    driver: bridge

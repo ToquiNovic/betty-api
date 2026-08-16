@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "invalid_credentials": "Invalid email or password",
+    "user_exists": "User already exists with this email",
+    "user_not_found": "User not found",
+    "password_reset_sent": "If the email exists, a password reset link has been sent",
+    "invalid_token": "Invalid or expired reset token",
+    "password_changed": "Password successfully updated",
+    "unauthorized": "Unauthorized to perform this action",
+    "google_auth_failed": "Google authentication failed"
+  },
+  "teams": {
+    "created": "Team successfully created",
+    "not_found": "Team not found",
+    "member_exists": "User is already a member of this team",
+    "invalid_invite": "Invalid or expired invitation code or link",
+    "joined": "Successfully joined the team",
+    "forbidden": "Insufficient permissions in this team",
+    "cannot_remove_owner": "Cannot remove the team owner"
+  },
+  "sensors": {
+    "created": "Sensor successfully registered",
+    "not_found": "Sensor not found",
+    "api_key_generated": "API Key generated successfully. Save it securely, it will not be shown again.",
+    "api_key_revoked": "API Key successfully revoked",
+    "api_key_rotated": "API Key successfully rotated",
+    "access_denied": "Access denied to this sensor",
+    "invalid_api_key": "Invalid sensor API Key",
+    "data_saved": "Sensor data successfully recorded"
+  },
+  "dashboards": {
+    "created": "Dashboard successfully created",
+    "not_found": "Dashboard not found",
+    "widget_added": "Widget added to dashboard",
+    "widget_not_found": "Widget not found",
+    "layout_updated": "Dashboard layout updated"
+  },
+  "common": {
+    "success": "Operation successful",
+    "error": "An unexpected error occurred",
+    "validation_error": "Validation error in supplied data"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "invalid_credentials": "Email o contraseña incorrectos",
+    "user_exists": "El usuario ya existe con este correo electrónico",
+    "user_not_found": "Usuario no encontrado",
+    "password_reset_sent": "Si el correo existe, se ha enviado un enlace para restablecer la contraseña",
+    "invalid_token": "Token de restablecimiento inválido o expirado",
+    "password_changed": "Contraseña actualizada exitosamente",
+    "unauthorized": "No autorizado para realizar esta acción",
+    "google_auth_failed": "Error en la autenticación con Google"
+  },
+  "teams": {
+    "created": "Equipo creado exitosamente",
+    "not_found": "Equipo no encontrado",
+    "member_exists": "El usuario ya es miembro de este equipo",
+    "invalid_invite": "Código o enlace de invitación inválido o expirado",
+    "joined": "Te has unido al equipo exitosamente",
+    "forbidden": "No tienes permisos suficientes en este equipo",
+    "cannot_remove_owner": "No se puede expulsar al propietario del equipo"
+  },
+  "sensors": {
+    "created": "Sensor registrado exitosamente",
+    "not_found": "Sensor no encontrado",
+    "api_key_generated": "API Key generada con éxito. Guárdala, no se volverá a mostrar.",
+    "api_key_revoked": "API Key revocada exitosamente",
+    "api_key_rotated": "API Key rotada exitosamente",
+    "access_denied": "No tienes acceso a este sensor",
+    "invalid_api_key": "API Key de sensor inválida",
+    "data_saved": "Dato de sensor almacenado correctamente"
+  },
+  "dashboards": {
+    "created": "Tablero creado exitosamente",
+    "not_found": "Tablero no encontrado",
+    "widget_added": "Widget añadido al tablero",
+    "widget_not_found": "Widget no encontrado",
+    "layout_updated": "Diseño del tablero actualizado"
+  },
+  "common": {
+    "success": "Operación exitosa",
+    "error": "Ha ocurrido un error inesperado",
+    "validation_error": "Error de validación en los datos suministrados"
+  }
+}
