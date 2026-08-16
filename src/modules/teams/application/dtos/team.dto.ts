@@ -33,7 +33,7 @@ export class JoinByCodeDto {
 }
 
 export class InviteMemberDto {
-  @ApiProperty({ example: 'investigador@universidad.edu.co' })
+  @ApiProperty({ example: 'colega@example.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string;

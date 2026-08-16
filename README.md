@@ -1,11 +1,11 @@
-# 🚀 Betty API — PaaS IoT Open Source para Comunidades Universitarias y Gemelos Digitales
+# 🚀 Betty API — PaaS Open Source para IoT, Gemelos Digitales y Metaversos
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/nestjs/nest/master/resources/logo-small.svg" width="100" alt="Betty IoT Logo" />
 </p>
 
 <p align="center">
-  <strong>Plataforma abierta de Internet de las Cosas (IoT) y Gemelos Digitales orientada a investigación académica y metaversos universitarios.</strong>
+  <strong>Plataforma abierta de Internet de las Cosas (IoT), Gemelos Digitales y Metaversos de alto rendimiento para desarrolladores, empresas y creadores.</strong>
 </p>
 
 <p align="center">
@@ -24,14 +24,14 @@
 ## 🌟 Características Principales
 
 - 📡 **Ingesta IoT ultrarrápida**: Broker MQTT autohosteado (**EMQX 5.8**) con autenticación HTTP vía API Keys criptográficas por sensor (`betty_live_...`).
-- 🎮 **Soporte Multiorigen**: Ingesta diferenciada tanto de sensores físicos IoT (`origin_type: sensor`) como de simulaciones de mundos virtuales (`origin_type: metaverso`).
-- 👥 **Roles Duales y Modelo RBAC Unificado**:
-  - **Roles del Sistema (`scope: system`)**: `admin` (control total de plataforma y usuarios) y `user` (investigador/estudiante estándar).
+- 🎮 **Soporte Multiorigen**: Ingesta diferenciada tanto de sensores físicos IoT (`origin_type: sensor`) como de entornos virtuales / simuladores 3D (`origin_type: metaverso`).
+- 👥 **Roles Duales y Modelo RBAC Relacional Unificado**:
+  - **Roles del Sistema (`scope: system`)**: `admin` (control global de plataforma y usuarios) y `user` (usuario estándar).
   - **Roles de Equipo (`scope: team`)**: `owner`, `team_admin`, `member` y `viewer` con permisos granulares almacenados en formato JSONB.
-- 👥 **Equipos de Investigación**: Grupos de trabajo colaborativos con invitaciones mediante código alfanumérico (8 caracteres) y enlaces seguros con token temporal de 7 días.
-- 🔒 **Sensores Privados o de Equipo**: Sensores personales de uso exclusivo o compartidos dentro de equipos de investigación.
+- 👥 **Equipos Colaborativos**: Grupos de trabajo con invitaciones mediante código alfanumérico (8 caracteres) y enlaces seguros con token temporal de 7 días.
+- 🔒 **Sensores Privados o de Equipo**: Sensores personales de uso exclusivo o compartidos dentro de equipos de trabajo.
 - 📊 **Múltiples Tableros (N Dashboards)**: Cada usuario puede crear tableros ilimitados con cuadrículas interactivas y 6 tipos de widgets (`line_chart`, `gauge`, `table`, `map`, `metric`, `bar_chart`).
-- 🌐 **Publicación de Dashboards Públicos**: Tableros que pueden publicarse libremente para acceso abierto a estudiantes o pantallas del campus sin requerir login (`GET /api/dashboards/public/:id`).
+- 🌐 **Publicación de Dashboards Públicos**: Tableros que pueden publicarse libremente para acceso abierto en pantallas o web pública sin requerir login (`GET /api/dashboards/public/:id`).
 - 🔌 **Visualización en Tiempo Real**: WebSocket Gateway (Socket.IO en `/realtime`) sincronizado mediante el canal Pub/Sub multihilo de **Dragonfly**.
 - 🔐 **Autenticación Dual & Seguridad**: Google OAuth 2.0 (Google Cloud Console) y Email/Contraseña con hasheo `bcrypt`, JWT, Refresh Tokens en memoria y reseteo de contraseña vía **Resend**.
 - 🐉 **Cache de Alto Rendimiento**: **Dragonfly** autohosteado (100% compatible con Redis RESP, multihilo) para caché de series temporales y eventos Pub/Sub.
@@ -158,11 +158,11 @@ pnpm run start:dev
 Realiza una petición a `POST /api/sensors`:
 ```json
 {
-  "name": "Estación Meteorológica Campus",
+  "name": "Sensor Ambiental Sala Principal",
   "teamId": "id-del-equipo-opcional",
   "metadata": {
     "model": "ESP32 + BME280",
-    "location": "Campus Central - Laboratorio 3"
+    "location": "Edificio Central - Sala 1"
   }
 }
 ```
@@ -171,7 +171,7 @@ Realiza una petición a `POST /api/sensors`:
 ```json
 {
   "id": "7b8f9e12-3456-4abc-9def-123456789abc",
-  "name": "Estación Meteorológica Campus",
+  "name": "Sensor Ambiental Sala Principal",
   "mqttTopic": "betty/sensor/7b8f9e12-3456-4abc-9def-123456789abc/data",
   "rawApiKey": "betty_live_a1b2c3d4e5f6...",
   "warning": "Guarda tu rawApiKey, no se volverá a mostrar."
@@ -266,4 +266,4 @@ betty-api/
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia **MIT** — Código abierto para la comunidad académica y de investigación.
+Este proyecto está bajo la Licencia **MIT** ([LICENSE](./LICENSE)). Eres libre de usar, modificar, distribuir y crear proyectos derivados (tanto comerciales como no comerciales), con el único requisito de incluir el aviso de copyright y conservar la atribución original al proyecto.

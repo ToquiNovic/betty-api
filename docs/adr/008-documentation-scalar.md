@@ -4,7 +4,7 @@
 Aceptado
 
 ## Contexto
-Se requería una interfaz de documentación interactiva de APIs moderna, rápida y con excelente experiencia de usuario (UX) para los desarrolladores y estudiantes de la comunidad universitaria.
+Se requería una interfaz de documentación interactiva de APIs moderna, rápida y con excelente experiencia de usuario (UX) para desarrolladores, investigadores y creadores de proyectos IoT y Metaversos.
 
 ## Decisión
 Se integra **Scalar** (`@scalar/nestjs-api-reference`) sobre la especificación OpenAPI de NestJS en sustitución de Swagger UI tradicional.

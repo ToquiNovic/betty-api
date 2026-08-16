@@ -27,14 +27,14 @@ export class EmailService {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
         <h2 style="color: #4338ca;">Betty PaaS - Restablecimiento de Contraseña</h2>
         <p>Hola <strong>${userName}</strong>,</p>
-        <p>Has solicitado restablecer tu contraseña en la plataforma universitaria Betty IoT.</p>
+        <p>Has solicitado restablecer tu contraseña en la plataforma Betty IoT PaaS.</p>
         <p>Haz clic en el siguiente botón para crear una nueva contraseña. Este enlace expira en 1 hora:</p>
         <div style="text-align: center; margin: 30px 0;">
           <a href="${resetLink}" style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Restablecer Contraseña</a>
         </div>
         <p style="color: #6b7280; font-size: 14px;">Si no solicitaste este cambio, puedes ignorar este correo de forma segura.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
-        <p style="color: #9ca3af; font-size: 12px; text-align: center;">Betty IoT PaaS - Plataforma Universitaria de Gemelos Digitales e IoT</p>
+        <p style="color: #9ca3af; font-size: 12px; text-align: center;">Betty IoT PaaS - Plataforma de Gemelos Digitales e IoT</p>
       </div>
     `;
 
@@ -78,7 +78,7 @@ export class EmailService {
         </div>
         <p style="color: #6b7280; font-size: 14px;">Este enlace es válido durante 7 días.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
-        <p style="color: #9ca3af; font-size: 12px; text-align: center;">Betty IoT PaaS - Plataforma Universitaria</p>
+        <p style="color: #9ca3af; font-size: 12px; text-align: center;">Betty IoT PaaS - Plataforma Colaborativa de IoT y Metaversos</p>
       </div>
     `;
 

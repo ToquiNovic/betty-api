@@ -1,8 +1,8 @@
 {
   "name": "@betty/api",
   "version": "1.0.0",
-  "description": "Open source IoT PaaS API for university communities & metaverse integration",
-  "author": "Betty Team",
+  "description": "Open source IoT & Digital Twins PaaS API for physical devices, metaverses and smart environments",
+  "author": "Daniel Toquica <danieltoquicadev@gmail.com>",
   "private": true,
   "license": "MIT",
   "scripts": {

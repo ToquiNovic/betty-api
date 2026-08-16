@@ -14,9 +14,9 @@ export const DEFAULT_ROLES = [
   },
   {
     slug: 'user',
-    name: 'Usuario Universitario',
+    name: 'Usuario',
     scope: 'system' as const,
-    description: 'Usuario estándar de la comunidad con acceso a creación de equipos, sensores y tableros',
+    description: 'Usuario estándar con acceso a creación de equipos, sensores y tableros',
     permissions: ['team:create', 'sensor:create', 'dashboard:create'],
     isSystem: true,
   },

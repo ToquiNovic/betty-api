@@ -50,7 +50,7 @@ async function bootstrap() {
   const openApiConfig = new DocumentBuilder()
     .setTitle('Betty PaaS API')
     .setDescription(
-      'Plataforma IoT Open Source para Comunidades Universitarias y Gemelos Digitales / Metaversos. ' +
+      'Plataforma IoT Open Source para Gemelos Digitales, Metaversos y Entornos Inteligentes. ' +
         'Permite gestión de equipos, registro de sensores IoT, ingesta MQTT de alta velocidad, ' +
         'y visualización en tiempo real mediante WebSockets y tableros personalizados.',
     )

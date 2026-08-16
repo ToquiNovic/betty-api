@@ -13,7 +13,7 @@ Se elige **EMQX 5.x Open Source** desplegado en Docker.
 1. **HTTP Authentication Nativo:** EMQX permite delegar la autenticación de cada conexión MQTT directamente a Betty API mediante un webhook HTTP simple (`POST /api/mqtt/auth`).
 2. **Rule Engine y Webhooks:** Permite reenviar los mensajes entrantes hacia Betty API (`POST /api/mqtt/webhook`) de forma eficiente sin necesidad de dependencias intermedias complejas.
 3. **Dashboard Web Integrado:** Interfaz web visual (`http://localhost:18083`) para monitoreo de conexiones, throughput y gestión de reglas.
-4. **Soporte de Clustering:** Capacidad de escalado horizontal si la comunidad universitaria crece.
+4. **Soporte de Clustering:** Capacidad de escalado horizontal si la demanda y el volumen de dispositivos crecen.
 
 ## Consecuencias
 - Mayor consumo de memoria base comparado con Mosquitto, pero con capacidades muy superiores de integración y administración.

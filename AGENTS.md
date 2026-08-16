@@ -7,15 +7,15 @@
 
 ## 🎯 Visión y Propósito del Proyecto
 
-**Betty API** es una plataforma PaaS de código abierto orientada a comunidades universitarias e investigación en Internet de las Cosas (IoT), Gemelos Digitales y Metaversos.
+**Betty API** es una plataforma PaaS de código abierto para Internet de las Cosas (IoT), Gemelos Digitales y Metaversos.
 
 ### Pilares Fundamentales:
 1. **Ingesta de Alto Throughput**: Broker MQTT (**EMQX 5.8**) con autenticación HTTP vía API Keys criptográficas por sensor (`betty_live_...`).
 2. **Soporte Multiorigen**: Telemetría clasificada como `sensor` (físico) o `metaverso` (entorno virtual/simulación).
-3. **Colaboración Académica y Roles Duales (RBAC Relacional Unificado)**:
+3. **Colaboración y Roles Duales (RBAC Relacional Unificado)**:
    - **Roles del Sistema (`scope: system`)**: `admin` (control global de la plataforma) y `user` vinculados en `users.role_id ➡️ roles.id`.
    - **Roles de Equipo (`scope: team`)**: `owner`, `team_admin`, `member` y `viewer` vinculados en `team_members.role_id ➡️ roles.id` con permisos JSONB, códigos alfanuméricos de 8 caracteres y enlaces seguros de 7 días.
-4. **Privacidad Granular**: Sensores de propiedad personal (privados) o compartidos en equipos de investigación.
+4. **Privacidad Granular**: Sensores de propiedad personal (privados) o compartidos en equipos de trabajo.
 5. **Dashboards en Tiempo Real & Públicos**: Tableros personalizables con 6 tipos de widgets (`line_chart`, `gauge`, `table`, `map`, `metric`, `bar_chart`), soporte para múltiples tableros (1:N), opción de publicación abierta (`GET /api/dashboards/public/:id`) y push de datos instantáneo vía **Socket.IO Gateway** (`/realtime`) sincronizado por **Dragonfly Pub/Sub**.
 6. **Autenticación Dual**: Google OAuth 2.0 (Google Cloud Console) y Email/Contraseña con hasheo `bcrypt` y reseteo vía **Resend**.
 7. **Series Temporales Eficientes**: **PostgreSQL 16 + TimescaleDB** (hypertables con particionamiento temporal automático y clave compuesta `[id, recorded_at]`) y **Drizzle ORM**.

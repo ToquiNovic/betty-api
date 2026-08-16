@@ -12,7 +12,7 @@ ALTER TABLE "users" ADD CONSTRAINT "users_role_id_roles_id_fk" FOREIGN KEY ("rol
 INSERT INTO "roles" ("slug", "name", "scope", "description", "permissions", "is_system")
 VALUES 
   ('admin', 'Administrador del Sistema', 'system', 'Control total de la plataforma, usuarios, configuraciones y auditoría global', '["*"]'::jsonb, true),
-  ('user', 'Usuario Universitario', 'system', 'Usuario estándar de la comunidad con acceso a creación de equipos, sensores y tableros', '["team:create", "sensor:create", "dashboard:create"]'::jsonb, true),
+  ('user', 'Usuario', 'system', 'Usuario estándar con acceso a creación de equipos, sensores y tableros', '["team:create", "sensor:create", "dashboard:create"]'::jsonb, true),
   ('owner', 'Propietario de Equipo', 'team', 'Control total del equipo, sensores compartidos, tableros y gestión de miembros', '["team:*", "sensor:*", "dashboard:*", "member:*"]'::jsonb, true),
   ('team_admin', 'Administrador de Equipo', 'team', 'Gestión de sensores compartidos, tableros e invitación de miembros', '["team:read", "sensor:*", "dashboard:*", "member:invite", "member:remove"]'::jsonb, true),
   ('member', 'Miembro de Equipo', 'team', 'Acceso a los sensores del equipo, creación de tableros y consultas de telemetría', '["team:read", "sensor:read", "sensor:data", "dashboard:create", "dashboard:read"]'::jsonb, true),

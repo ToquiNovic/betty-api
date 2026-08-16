@@ -4,7 +4,7 @@
 Aceptado
 
 ## Contexto
-El proyecto Betty API requiere construir una plataforma PaaS orientada a IoT y Metaversos para comunidades universitarias. Se necesita una base sólida que soporte escalabilidad, tipado estático con TypeScript, inyección de dependencias, soporte para microservicios y protocolos en tiempo real (WebSockets y MQTT).
+El proyecto Betty API requiere construir una plataforma PaaS orientada a IoT, Gemelos Digitales y Metaversos para cualquier usuario, desarrollador u organización. Se necesita una base sólida que soporte escalabilidad, tipado estático con TypeScript, inyección de dependencias, soporte para microservicios y protocolos en tiempo real (WebSockets y MQTT).
 
 ## Decisión
 Se decide utilizar **NestJS 11** como framework principal backend en TypeScript.
