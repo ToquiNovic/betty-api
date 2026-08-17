@@ -35,9 +35,29 @@
     "widget_not_found": "Widget not found",
     "layout_updated": "Dashboard layout updated"
   },
+  "projects": {
+    "created": "Project successfully created",
+    "not_found": "Project not found",
+    "updated": "Project successfully updated",
+    "deleted_successfully": "Project successfully deleted",
+    "published": "Project successfully published",
+    "unpublished": "Project successfully unpublished",
+    "step_added": "Step added to project",
+    "step_not_found": "Step not found",
+    "step_deleted_successfully": "Step successfully deleted",
+    "material_added": "Material added to project",
+    "material_not_found": "Material not found",
+    "material_deleted_successfully": "Material successfully deleted",
+    "firmware_added": "Firmware successfully uploaded",
+    "firmware_not_found": "Firmware not found",
+    "firmware_deleted_successfully": "Firmware successfully deleted",
+    "model_uploaded": "3D model successfully uploaded",
+    "model_deleted": "3D model successfully deleted"
+  },
   "common": {
     "success": "Operation successful",
     "error": "An unexpected error occurred",
-    "validation_error": "Validation error in supplied data"
+    "validation_error": "Validation error in supplied data",
+    "file_not_found": "File not found"
   }
 }

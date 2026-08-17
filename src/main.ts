@@ -46,49 +46,53 @@ async function bootstrap() {
     }),
   );
 
-  // OpenAPI Specification for Scalar
-  const openApiConfig = new DocumentBuilder()
-    .setTitle('Betty PaaS API')
-    .setDescription(
-      'Plataforma IoT Open Source para Gemelos Digitales, Metaversos y Entornos Inteligentes. ' +
-        'Permite gestión de equipos, registro de sensores IoT, ingesta MQTT de alta velocidad, ' +
-        'y visualización en tiempo real mediante WebSockets y tableros personalizados.',
-    )
-    .setVersion('1.0.0')
-    .addBearerAuth()
-    .addTag('Auth', 'Autenticación mediante Email/Contraseña y Google OAuth 2.0')
-    .addTag('Users', 'Gestión de perfil de usuario y administración')
-    .addTag('Teams', 'Equipos, roles de equipo, membresías e invitaciones por código o link')
-    .addTag('Sensors', 'Sensores IoT/Metaverso, API Keys y series temporales')
-    .addTag('MQTT Integration', 'Endpoints de autenticación HTTP y webhook para EMQX')
-    .addTag('Dashboards', 'Tableros públicos y privados con widgets configurables en tiempo real')
-    .build();
+  // Internal OpenAPI Specification (enabled only if ENABLE_SWAGGER_DOCS=true)
+  const enableDocs = configService.get<string>('ENABLE_SWAGGER_DOCS') === 'true';
+  if (enableDocs) {
+    const openApiConfig = new DocumentBuilder()
+      .setTitle('Betty PaaS API')
+      .setDescription(
+        'Plataforma IoT Open Source para Gemelos Digitales, Metaversos y Entornos Inteligentes. ' +
+          'Permite gestión de equipos, registro de sensores IoT, ingesta MQTT de alta velocidad, ' +
+          'y visualización en tiempo real mediante WebSockets y tableros personalizados.',
+      )
+      .setVersion('1.0.0')
+      .addBearerAuth()
+      .addTag('Auth', 'Autenticación mediante Email/Contraseña y Google OAuth 2.0')
+      .addTag('Users', 'Gestión de perfil de usuario y administración')
+      .addTag('Teams', 'Equipos, roles de equipo, membresías e invitaciones por código o link')
+      .addTag('Sensors', 'Sensores IoT/Metaverso, API Keys y series temporales')
+      .addTag('MQTT Integration', 'Endpoints de autenticación HTTP y webhook para EMQX')
+      .addTag('Dashboards', 'Tableros públicos y privados con widgets configurables en tiempo real')
+      .addTag('Projects', 'Catálogo público y detalle de proyectos replicables IoT')
+      .addTag('Projects Admin', 'Gestión de proyectos, pasos, materiales, modelos 3D y firmware (admin)')
+      .build();
 
-  const openApiDocument = SwaggerModule.createDocument(app, openApiConfig);
+    const openApiDocument = SwaggerModule.createDocument(app, openApiConfig);
 
-  // Scalar Interactive API Reference Documentation
-  app.use(
-    `/${apiPrefix}/docs`,
-    apiReference({
-      spec: {
-        content: openApiDocument,
-      },
-      theme: 'purple',
-      darkMode: true,
-      layout: 'modern',
-      defaultHttpClient: {
-        targetKey: 'js',
-        clientKey: 'fetch',
-      },
-    }),
-  );
+    app.use(
+      `/${apiPrefix}/docs`,
+      apiReference({
+        spec: {
+          content: openApiDocument,
+        },
+        theme: 'purple',
+        darkMode: true,
+        layout: 'modern',
+        defaultHttpClient: {
+          targetKey: 'js',
+          clientKey: 'fetch',
+        },
+      }),
+    );
+    logger.log(`📑 Scalar API Documentation enabled on: http://localhost:${port}/${apiPrefix}/docs`);
+  }
 
   // Enable shutdown hooks
   app.enableShutdownHooks();
 
   await app.listen(port);
   logger.log(`🚀 Betty API running on: http://localhost:${port}/${apiPrefix}`);
-  logger.log(`📑 Scalar API Documentation available on: http://localhost:${port}/${apiPrefix}/docs`);
   logger.log(`🔌 WebSocket Gateway available at ws://localhost:${port}/realtime`);
 }
 

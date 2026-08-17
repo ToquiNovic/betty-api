@@ -7,6 +7,13 @@ import { sensorData } from './sensor-data.schema';
 import { dashboards, dashboardWidgets } from './dashboards.schema';
 import { passwordResetTokens } from './password-resets.schema';
 import { apiKeyAuditLog } from './api-keys.schema';
+import {
+  projects,
+  projectSteps,
+  projectMaterials,
+  projectFirmware,
+  projectTags,
+} from './projects.schema';
 
 // Relations
 export const rolesRelations = relations(roles, ({ many }) => ({
@@ -24,6 +31,7 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   ownedSensors: many(sensors),
   dashboards: many(dashboards),
   passwordResetTokens: many(passwordResetTokens),
+  createdProjects: many(projects),
 }));
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
@@ -63,6 +71,7 @@ export const sensorsRelations = relations(sensors, ({ one, many }) => ({
   data: many(sensorData),
   widgets: many(dashboardWidgets),
   auditLogs: many(apiKeyAuditLog),
+  firmware: many(projectFirmware),
 }));
 
 export const sensorDataRelations = relations(sensorData, ({ one }) => ({
@@ -91,6 +100,45 @@ export const dashboardWidgetsRelations = relations(dashboardWidgets, ({ one }) =
   }),
 }));
 
+export const projectsRelations = relations(projects, ({ one, many }) => ({
+  creator: one(users, {
+    fields: [projects.createdById],
+    references: [users.id],
+  }),
+  steps: many(projectSteps),
+  materials: many(projectMaterials),
+  firmware: many(projectFirmware),
+  tags: many(projectTags),
+}));
+
+export const projectStepsRelations = relations(projectSteps, ({ one }) => ({
+  project: one(projects, {
+    fields: [projectSteps.projectId],
+    references: [projects.id],
+  }),
+}));
+
+export const projectMaterialsRelations = relations(projectMaterials, ({ one }) => ({
+  project: one(projects, {
+    fields: [projectMaterials.projectId],
+    references: [projects.id],
+  }),
+}));
+
+export const projectFirmwareRelations = relations(projectFirmware, ({ one }) => ({
+  project: one(projects, {
+    fields: [projectFirmware.projectId],
+    references: [projects.id],
+  }),
+}));
+
+export const projectTagsRelations = relations(projectTags, ({ one }) => ({
+  project: one(projects, {
+    fields: [projectTags.projectId],
+    references: [projects.id],
+  }),
+}));
+
 export * from './roles.schema';
 export * from './users.schema';
 export * from './teams.schema';
@@ -99,3 +147,4 @@ export * from './sensor-data.schema';
 export * from './dashboards.schema';
 export * from './password-resets.schema';
 export * from './api-keys.schema';
+export * from './projects.schema';

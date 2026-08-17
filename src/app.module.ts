@@ -10,6 +10,7 @@ import cacheConfig from './config/cache.config';
 import databaseConfig from './config/database.config';
 import mqttConfig from './config/mqtt.config';
 import resendConfig from './config/resend.config';
+import storageConfig from './config/storage.config';
 import { DrizzleModule } from './database/drizzle.module';
 import { AppI18nModule } from './i18n/i18n.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -17,9 +18,11 @@ import { CacheModule } from './modules/cache/cache.module';
 import { DashboardsModule } from './modules/dashboards/dashboards.module';
 import { EmailModule } from './modules/email/email.module';
 import { MqttModule } from './modules/mqtt/mqtt.module';
+import { ProjectsModule } from './modules/projects/projects.module';
 import { RealtimeModule } from './modules/realtime/realtime.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { SensorsModule } from './modules/sensors/sensors.module';
+import { StorageModule } from './modules/storage/storage.module';
 import { TeamsModule } from './modules/teams/teams.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -34,6 +37,7 @@ import { UsersModule } from './modules/users/users.module';
         mqttConfig,
         authConfig,
         resendConfig,
+        storageConfig,
       ],
       envFilePath: ['.env'],
     }),
@@ -49,6 +53,8 @@ import { UsersModule } from './modules/users/users.module';
     MqttModule,
     DashboardsModule,
     RealtimeModule,
+    StorageModule,
+    ProjectsModule,
   ],
   providers: [
     {
@@ -66,3 +72,4 @@ import { UsersModule } from './modules/users/users.module';
   ],
 })
 export class AppModule {}
+

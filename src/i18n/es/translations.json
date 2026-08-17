@@ -35,9 +35,29 @@
     "widget_not_found": "Widget no encontrado",
     "layout_updated": "Diseño del tablero actualizado"
   },
+  "projects": {
+    "created": "Proyecto creado exitosamente",
+    "not_found": "Proyecto no encontrado",
+    "updated": "Proyecto actualizado exitosamente",
+    "deleted_successfully": "Proyecto eliminado exitosamente",
+    "published": "Proyecto publicado exitosamente",
+    "unpublished": "Proyecto despublicado exitosamente",
+    "step_added": "Paso añadido al proyecto",
+    "step_not_found": "Paso no encontrado",
+    "step_deleted_successfully": "Paso eliminado exitosamente",
+    "material_added": "Material añadido al proyecto",
+    "material_not_found": "Material no encontrado",
+    "material_deleted_successfully": "Material eliminado exitosamente",
+    "firmware_added": "Firmware cargado exitosamente",
+    "firmware_not_found": "Firmware no encontrado",
+    "firmware_deleted_successfully": "Firmware eliminado exitosamente",
+    "model_uploaded": "Modelo 3D cargado exitosamente",
+    "model_deleted": "Modelo 3D eliminado exitosamente"
+  },
   "common": {
     "success": "Operación exitosa",
     "error": "Ha ocurrido un error inesperado",
-    "validation_error": "Error de validación en los datos suministrados"
+    "validation_error": "Error de validación en los datos suministrados",
+    "file_not_found": "Archivo no encontrado"
   }
 }
