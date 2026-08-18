@@ -70,12 +70,12 @@ services:
     container_name: betty_api_prod
     restart: always
     ports:
-      - "${PORT:-3000}:3000"
+      - "${PORT:-3100}:${PORT:-3100}"
     env_file:
       - .env
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=${PORT:-3100}
       - DATABASE_URL=postgres://${POSTGRES_USER:-betty}:${POSTGRES_PASSWORD:-betty_secret_pass}@postgres:5432/${POSTGRES_DB:-betty_db}
       - DRAGONFLY_HOST=dragonfly
       - DRAGONFLY_PORT=6379
