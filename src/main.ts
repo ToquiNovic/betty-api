@@ -46,8 +46,8 @@ async function bootstrap() {
     }),
   );
 
-  // Internal OpenAPI Specification (enabled only if ENABLE_SWAGGER_DOCS=true)
-  const enableDocs = configService.get<string>('ENABLE_SWAGGER_DOCS') === 'true';
+  // Scalar & OpenAPI Documentation (enabled in development and when configured)
+  const enableDocs = configService.get<boolean>('app.enableDocs', true);
   if (enableDocs) {
     const openApiConfig = new DocumentBuilder()
       .setTitle('Betty PaaS API')
@@ -70,6 +70,11 @@ async function bootstrap() {
 
     const openApiDocument = SwaggerModule.createDocument(app, openApiConfig);
 
+    // Serve raw OpenAPI JSON for external tooling / SDK generators
+    app.getHttpAdapter().get(`/${apiPrefix}/docs.json`, (_req: any, res: any) => {
+      res.json(openApiDocument);
+    });
+
     app.use(
       `/${apiPrefix}/docs`,
       apiReference({
@@ -86,6 +91,7 @@ async function bootstrap() {
       }),
     );
     logger.log(`📑 Scalar API Documentation enabled on: http://localhost:${port}/${apiPrefix}/docs`);
+    logger.log(`📄 OpenAPI JSON Specification available at: http://localhost:${port}/${apiPrefix}/docs.json`);
   }
 
   // Enable shutdown hooks

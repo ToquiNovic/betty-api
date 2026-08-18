@@ -5,10 +5,8 @@ services:
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-betty}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-betty_secret_pass}
       POSTGRES_DB: ${POSTGRES_DB:-betty_db}
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_prod_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -24,18 +22,16 @@ services:
     image: docker.dragonflydb.io/dragonflydb/dragonfly:latest
     container_name: betty_dragonfly_prod
     restart: always
-    ports:
-      - "6379:6379"
     ulimits:
       memlock: -1
     volumes:
       - dragonfly_prod_data:/data
     command: >
-      --requirepass ${DRAGONFLY_PASSWORD}
+      --requirepass ${DRAGONFLY_PASSWORD:-dragonfly_secret_pass}
       --logtostderr
       --snapshot_cron "*/15 * * * *"
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "${DRAGONFLY_PASSWORD}", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${DRAGONFLY_PASSWORD:-dragonfly_secret_pass}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -53,7 +49,7 @@ services:
       - "8883:8883"
     environment:
       - "EMQX_DASHBOARD__DEFAULT_USERNAME=${EMQX_ADMIN_USER:-admin}"
-      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=${EMQX_ADMIN_PASSWORD}"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=${EMQX_ADMIN_PASSWORD:-public_admin}"
       - "EMQX_ALLOW_ANONYMOUS=false"
     volumes:
       - emqx_prod_data:/opt/emqx/data
@@ -77,6 +73,14 @@ services:
       - "${PORT:-3000}:3000"
     env_file:
       - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgres://${POSTGRES_USER:-betty}:${POSTGRES_PASSWORD:-betty_secret_pass}@postgres:5432/${POSTGRES_DB:-betty_db}
+      - DRAGONFLY_HOST=dragonfly
+      - DRAGONFLY_PORT=6379
+      - DRAGONFLY_PASSWORD=${DRAGONFLY_PASSWORD:-dragonfly_secret_pass}
+      - MQTT_BROKER_URL=mqtt://emqx:1883
     depends_on:
       postgres:
         condition: service_healthy

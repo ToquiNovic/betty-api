@@ -87,6 +87,7 @@ services:
       - DRAGONFLY_PORT=6379
       - DRAGONFLY_PASSWORD=dragonfly_secret_pass
       - MQTT_BROKER_URL=mqtt://emqx:1883
+      - ENABLE_DOCS=true
     volumes:
       - .:/app
       - /app/node_modules
