@@ -8,6 +8,10 @@
       {
         "include": "i18n/**/*",
         "outDir": "dist/src"
+      },
+      {
+        "include": "database/migrations/**/*",
+        "outDir": "dist/src"
       }
     ]
   }
